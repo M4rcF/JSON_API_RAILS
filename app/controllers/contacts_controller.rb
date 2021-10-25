@@ -1,12 +1,18 @@
 class ContactsController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   before_action :set_contact, only: [:show, :update, :destroy]
 
   # GET /contacts
   def index
-    @contacts = Contact.all
+    page_number = params[:page].try(:[], :number)
+    per_page = params[:page].try(:[], :size)
 
-    render json: @contacts, include: [:kind, :phones, :address] #, root: true, except: [:created_at, :updated_at] , include: [kind: { except: [:created_at, :updated_at] }, phones: { only: [:id, :number] }, address: { only: [:id, :street, :city] } ]
+    @contacts = Contact.all.page(page_number).per(per_page)
+    #expires_in 30.seconds, public: true
+    #if stale?(etag: @contacts)
+      render json: @contacts, include: [:kind, :phones, :address]
+    #end
+     #, root: true, except: [:created_at, :updated_at] , include: [kind: { except: [:created_at, :updated_at] }, phones: { only: [:id, :number] }, address: { only: [:id, :street, :city] } ]
   end
 
   # GET /contacts/1

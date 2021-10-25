@@ -13,9 +13,13 @@ gem 'active_model_serializers'
 
 gem 'foreman'
 
-gem 'devise_token_auth'
+#gem 'devise_token_auth'
 
 gem 'devise-i18n'
+
+#gem 'versionist' para separar versões path
+
+gem 'kaminari'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.6'
